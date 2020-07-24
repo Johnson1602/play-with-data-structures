@@ -93,7 +93,9 @@ public class BST<E extends Comparable<E>> {
 
     // 前序遍历 BST，用户调用
     public void preOrder() {
+        System.out.println("BST Preorder: ");
         preOrder(root);
+        System.out.println();
     }
 
     // 前序遍历以 node 为根节点的 BST，递归算法
@@ -105,10 +107,49 @@ public class BST<E extends Comparable<E>> {
         }
 
         // 否则先访问当前节点，再依次访问左子树和右子树
-        System.out.println(node.e);
+        System.out.print(node.e + " ");
         preOrder(node.left);
         preOrder(node.right);
     }
 
+    // 中序遍历 BST，用户调用
+    // 中序遍历 BST 得到的结果是这棵树中所有元素从小到大排序的结果
+    // 所以"二分搜索树"也叫"排序树"
+    public void inOrder() {
+        System.out.println("BST Inorder: ");
+        inOrder(root);
+        System.out.println();
+    }
+
+    // 中序遍历以 node 为根节点的 BST，递归算法
+    private void inOrder(Node node) {
+
+        if (node == null) {
+            return;
+        }
+
+        inOrder(node.left);
+        System.out.print(node.e + " ");
+        inOrder(node.right);
+    }
+
+    // 后序遍历 BST，用户调用
+    public void postOrder() {
+        System.out.println("BST Postorder: ");
+        postOrder(root);
+        System.out.println();
+    }
+
+    // 后序遍历以 node 为根节点的 BST，递归算法
+    private void postOrder(Node node) {
+
+        if (node == null) {
+            return;
+        }
+
+        postOrder(node.left);
+        postOrder(node.right);
+        System.out.print(node.e + " ");
+    }
 
 }
