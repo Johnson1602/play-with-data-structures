@@ -6,19 +6,29 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) {
-        // 测试遍历算法
-//        int[] nums = {5, 3, 6, 8, 4, 2};
-//        BST<Integer> bst = new BST<>();
-//        for (int i = 0; i < nums.length; i++) {
-//            bst.add(nums[i]);
-//        }
-//        bst.preOrder();
-//        bst.preOrderNR();
-//        bst.inOrder();
-//        bst.postOrder();
-//        bst.levelOrder();
 
-        // 测试删除最大值/最小值
+        traversal();
+        removeMinOrMax();
+        removeSelected();
+
+    }
+
+    // 测试遍历算法
+    public static void traversal() {
+        int[] nums = {5, 3, 6, 8, 4, 2};
+        BST<Integer> bst = new BST<>();
+        for (int i = 0; i < nums.length; i++) {
+            bst.add(nums[i]);
+        }
+        bst.preOrder();
+        bst.preOrderNR();
+        bst.inOrder();
+        bst.postOrder();
+        bst.levelOrder();
+    }
+
+    // 测试删除最大值/最小值
+    public static void removeMinOrMax() {
         BST<Integer> bst = new BST<>();
         Random random = new Random();
         int n = 1000;
@@ -59,6 +69,19 @@ public class Main {
 //            }
 //        }
 //        System.out.println("removeMin test completed!");
+    }
+
+    // 测试删除任意元素
+    public static void removeSelected() {
+        int[] nums = {5, 3, 6, 8, 4, 2};
+        BST<Integer> bst = new BST<>();
+        for (int i = 0; i < nums.length; i++) {
+            bst.add(nums[i]);
+        }
+        bst.preOrder();
+        bst.remove(3);
+        bst.preOrder();
+        bst.inOrder();
     }
 
 }

@@ -294,4 +294,53 @@ public class BST<E extends Comparable<E>> {
         return node;
     }
 
+    // Hibbard Deletion
+    // 从 BST 中删除给定节点（如果不存在则什么都不做）
+    public void remove(E e) {
+        root = remove(root, e);
+    }
+
+    // 从以 node 为根的树中删除节点 e，返回删除完成后的新树的根节点
+    private Node remove(Node node, E e) {
+
+        // 递归终止：node 为空
+        if (node == null) {
+            return null;
+        }
+
+        // 如果待删除节点小于当前节点，则从当前节点则左子树中删除指定节点
+        if (e.compareTo(node.e) < 0) {
+            node.left =  remove(node.left, e);
+            return node;
+        } else if (e.compareTo(node.e) > 0) { // 若大于则从右子树中删除
+            node.right =  remove(node.right, e);
+            return node;
+        } else { // e.compareTo(node.e) == 0, 删除当前节点
+            // 如果该节点只有一棵子树，就很容易处理
+            if (node.left == null) {
+                Node right = node.right;
+                node.right = null;
+                size--;
+                return right;
+            }
+            if (node.right == null) {
+                Node left = node.left;
+                node.left = null;
+                size--;
+                return left;
+            }
+
+            // 如果该节点左右子树都不为空
+            // 那么先找到该节点的后继节点（右子树中的最小节点）
+            // 用后继节点替换掉这个节点
+            Node successor = min(node.right);
+            successor.right = removeMin(node.right);
+            successor.left = node.left;
+            node.left = null;
+            node.right = null;
+            return successor;
+        }
+    }
+
+
 }
