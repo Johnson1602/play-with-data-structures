@@ -202,4 +202,96 @@ public class BST<E extends Comparable<E>> {
         System.out.println();
     }
 
+    // 寻找并返回 BST 中的最小元素
+    public E min() {
+        if (size == 0) {
+            throw new IllegalArgumentException("BST is empty!");
+        }
+        return min(root).e;
+    }
+
+    // 返回以 node 为根的 BST 中的最小值所在的节点
+    private Node min(Node node) {
+
+        if (node.left == null) {
+            return node;
+        }
+        return min(node.left);
+    }
+
+    // 寻找并返回 BST 中的最大元素
+    public E max() {
+        if (size == 0) {
+            throw new IllegalArgumentException("BST is empty!");
+        }
+        return max(root).e;
+    }
+
+    // 返回以 node 为根的 BST 中的最大值所在的节点
+    private Node max(Node node) {
+
+        if (node.right == null) {
+            return node;
+        }
+        return max(node.right);
+    }
+
+    // 从 BST 中删除最小值所在的节点，并返回最小值
+    public E removeMin() {
+        E min = min();
+        root = removeMin(root);
+        return min;
+    }
+
+    // 注意这里的逻辑不能这样写
+    // 虽然第一眼看上去好像是对的，但是如果此时树中只剩一个节点
+    // 那么删除的过程会正常进行，但是删除完之后树为空（size == 0）
+    // 那么在 return 的过程中调用 min() 会检查树是否为空，此时已经为空就回抛出异常
+//    public E removeMin() {
+//        root = removeMin(root);
+//        return min();
+//    }
+
+    // 返回以 node 为根节点的 BST 在删除完最小值所在节点后，新的根节点
+    private Node removeMin(Node node) {
+        // 由于在 public 中调用 min() 的过程中已经检查过了是否为空，此处就不用再检查一遍了
+//        if (size == 0) {
+//            throw new IllegalArgumentException("BST is Empty");
+//        }
+
+        // 删除以 node 为根的树的最小节点
+        // 如果这个 node 就是这棵树的最小节点
+        // 那么删除完之后返回的新树的根节点，就是这个 node 的右子树的根节点
+        if (node.left == null) {
+            Node right = node.right;
+            node.right = null;
+            size--;
+            return right;
+        }
+        node.left = removeMin(node.left);
+        return node;
+    }
+
+    // 从 BST 中删除最大值所在的节点，并返回最大值
+    public E removeMax() {
+        E max = max();
+        root = removeMax(root);
+        return max;
+    }
+
+    // 返回以 node 为根节点的 BST 在删除完最大值所在节点后，新的根节点
+    private Node removeMax(Node node) {
+        if (size == 0) {
+            throw new IllegalArgumentException("BST is Empty");
+        }
+        if (node.right == null) {
+            Node left = node.left;
+            node.left = null;
+            size--;
+            return left;
+        }
+        node.right = removeMax(node.right);
+        return node;
+    }
+
 }
