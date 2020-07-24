@@ -10,6 +10,7 @@ public class Main {
         }
 
         bst.preOrder();
+        bst.preOrderNR();
         bst.inOrder();
         bst.postOrder();
     }

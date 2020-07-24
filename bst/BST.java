@@ -1,5 +1,7 @@
 package bst;
 
+import java.util.Stack;
+
 // 使 BST 支持范型，且范型要求可比较
 public class BST<E extends Comparable<E>> {
 
@@ -110,6 +112,29 @@ public class BST<E extends Comparable<E>> {
         System.out.print(node.e + " ");
         preOrder(node.left);
         preOrder(node.right);
+    }
+
+    // 前序遍历 BST，非递归算法，使用栈作为辅助
+    public void preOrderNR() {
+        System.out.println("BST Preorder (NR): ");
+        Stack<Node> stack = new Stack<>();
+        if (root == null) {
+            return;
+        }
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            Node current = stack.pop();
+            System.out.print(current.e + " ");
+
+            // 由于栈后进先出，前序遍历是先遍历左子树，所以左子树后入栈
+            if (current.right != null) {
+                stack.push(current.right);
+            }
+            if (current.left != null) {
+                stack.push(current.left);
+            }
+        }
+        System.out.println();
     }
 
     // 中序遍历 BST，用户调用
