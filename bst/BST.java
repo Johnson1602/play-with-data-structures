@@ -1,5 +1,7 @@
 package bst;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 // 使 BST 支持范型，且范型要求可比较
@@ -93,6 +95,7 @@ public class BST<E extends Comparable<E>> {
         }
     }
 
+    // BST 的前中后序遍历，本质上都是深度优先遍历
     // 前序遍历 BST，用户调用
     public void preOrder() {
         System.out.println("BST Preorder: ");
@@ -175,6 +178,28 @@ public class BST<E extends Comparable<E>> {
         postOrder(node.left);
         postOrder(node.right);
         System.out.print(node.e + " ");
+    }
+
+    // BST 的层序优先遍历，即广度优先遍历，使用队列作为辅助 (非递归)
+    public void levelOrder() {
+        System.out.println("BST Levelorder: ");
+        Queue<Node> queue = new LinkedList<>();
+        if (root == null) {
+            return;
+        }
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            Node current = queue.remove();
+            System.out.print(current.e + " ");
+
+            if (current.left != null) {
+                queue.add(current.left);
+            }
+            if (current.right != null) {
+                queue.add(current.right);
+            }
+        }
+        System.out.println();
     }
 
 }

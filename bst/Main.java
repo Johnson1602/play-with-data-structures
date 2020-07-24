@@ -13,6 +13,7 @@ public class Main {
         bst.preOrderNR();
         bst.inOrder();
         bst.postOrder();
+        bst.levelOrder();
     }
 
 }
