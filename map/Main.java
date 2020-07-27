@@ -7,14 +7,27 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-        testLLM();
+        String file = "Your file path";
+        BSTMap<String, Integer> bstMap = new BSTMap<>();
+        System.out.println("Testing BST Map...");
+        double bstMapTime = testMap(bstMap, file);
+        System.out.println("Finish in: " + bstMapTime + " s.");
+
+        System.out.println();
+
+        LinkedListMap<String, Integer> linkedListMap = new LinkedListMap<>();
+        System.out.println("Testing Linked List Map...");
+        double linkedListMapTime = testMap(linkedListMap, file);
+        System.out.println("Finish in: " + linkedListMapTime + " s.");
     }
 
-    public static void testLLM() {
+    public static double testMap(Map<String, Integer> map, String file) {
+
+        Long startTime = System.nanoTime();
+
         ArrayList<String> words = new ArrayList<>();
-        LinkedListMap<String, Integer> map = new LinkedListMap<>();
         System.out.println("Pride and Prejudice");
-        if (FileOperation.readFile("Your file path", words)) {
+        if (FileOperation.readFile(file, words)) {
             System.out.println("Total words: " + words.size());
             for (String word: words) {
                 if (map.contains(word)) {
@@ -28,6 +41,10 @@ public class Main {
             System.out.println("Frequency of \"pride\": " + map.get("pride"));
             System.out.println("Frequency of \"prejudice\": " + map.get("prejudice"));
         }
+
+        Long endTime = System.nanoTime();
+
+        return (endTime - startTime) / 1000000000.0;
     }
 
 }
